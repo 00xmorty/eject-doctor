@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: zsh syntax and smoke tests
+        run: bash tests/smoke.sh
+      - name: representative read-only commands
+        run: |
+          zsh ./eject-doctor.zsh --version
+          zsh ./eject-doctor.zsh list
+          zsh ./eject-doctor.zsh sample
