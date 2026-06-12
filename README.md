@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://github.com/00xmorty/eject-doctor/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/00xmorty/eject-doctor/actions/workflows/ci.yml/badge.svg"></a>
-  <img alt="release" src="https://img.shields.io/badge/release-v0.1.0%20draft-orange">
+  <img alt="release" src="https://img.shields.io/badge/release-v0.1.0-brightgreen">
   <img alt="license" src="https://img.shields.io/badge/license-MIT-blue">
   <img alt="platform" src="https://img.shields.io/badge/platform-macOS-lightgrey">
   <img alt="language" src="https://img.shields.io/badge/language-zsh-89e051">
