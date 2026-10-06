@@ -4,7 +4,7 @@
 
 set -u
 
-VERSION="0.1.0"
+VERSION="0.1.1"
 MAX_PROCESSES=20
 
 usage() {
@@ -19,7 +19,7 @@ Usage:
   ./eject-doctor.zsh --version
 
 Safety:
-  - Read-only v0.1.0.
+  - Read-only v0.1.1.
   - No sudo, no kill, no unmount, no force eject.
   - Explains likely blockers so you can close apps or use Finder/Disk Utility yourself.
 EOF
@@ -79,7 +79,13 @@ print_processes() {
   local rows
   rows="$(lsof -nP 2>/dev/null | awk -v p="$prefix" -v exact="$target" '
     NR == 1 {next}
-    index($0, p) > 0 || $NF == exact {print $1 "\t" $2 "\t" $3 "\t" $NF}
+    {
+      path_start = index($0, exact)
+      if (path_start == 0) next
+      file_path = substr($0, path_start)
+      if (file_path == exact || index(file_path, p) == 1)
+        print $1 "\t" $2 "\t" $3 "\t" file_path
+    }
   ' | sort -u | head -n "$MAX_PROCESSES")"
   if [[ -z "$rows" ]]; then
     echo "  none visible to current user"
@@ -87,8 +93,9 @@ print_processes() {
     return 0
   fi
   printf "  %-22s %-8s %-12s %s\n" "COMMAND" "PID" "USER" "PATH"
-  print -r -- "$rows" | while IFS=$'\t' read -r cmd pid user path; do
-    printf "  %-22s %-8s %-12s %s\n" "$cmd" "$pid" "$user" "$path"
+  local cmd pid process_user file_path
+  print -r -- "$rows" | while IFS=$'\t' read -r cmd pid process_user file_path; do
+    printf "  %-22s %-8s %-12s %s\n" "$cmd" "$pid" "$process_user" "$file_path"
   done
 }
 
@@ -105,7 +112,7 @@ Safe next steps:
   1. Close Finder tabs/windows showing the disk.
   2. Quit the listed app if it is yours and safe to close.
   3. Wait for Spotlight/backup jobs to finish when they are the culprit.
-  4. Use Finder or Disk Utility eject. eject-doctor v0.1.0 never ejects for you.
+  4. Use Finder or Disk Utility eject. eject-doctor v0.1.1 never ejects for you.
 EOF
 }
 
@@ -161,7 +168,7 @@ Safe next steps:
   1. Close Finder tabs/windows showing the disk.
   2. Quit the listed app if it is yours and safe to close.
   3. Wait for Spotlight/backup jobs to finish when they are the culprit.
-  4. Use Finder or Disk Utility eject. eject-doctor v0.1.0 never ejects for you.
+  4. Use Finder or Disk Utility eject. eject-doctor v0.1.1 never ejects for you.
 EOF
 }
 
