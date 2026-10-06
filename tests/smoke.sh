@@ -12,7 +12,7 @@ help_output="$(zsh "$SCRIPT" help)"
 [[ "$help_output" == *"no kill"* ]]
 
 version_output="$(zsh "$SCRIPT" --version)"
-[[ "$version_output" == "eject-doctor 0.1.0" ]]
+[[ "$version_output" == "eject-doctor 0.1.1" ]]
 
 sample_output="$(zsh "$SCRIPT" sample)"
 [[ "$sample_output" == *"Eject Doctor report"* ]]

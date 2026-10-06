@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://github.com/00xmorty/eject-doctor/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/00xmorty/eject-doctor/actions/workflows/ci.yml/badge.svg"></a>
-  <img alt="release" src="https://img.shields.io/badge/release-v0.1.0-brightgreen">
+  <img alt="release" src="https://img.shields.io/badge/release-v0.1.1-brightgreen">
   <img alt="license" src="https://img.shields.io/badge/license-MIT-blue">
   <img alt="platform" src="https://img.shields.io/badge/platform-macOS-lightgrey">
   <img alt="language" src="https://img.shields.io/badge/language-zsh-89e051">
@@ -82,12 +82,12 @@ Prints deterministic demo output without needing an external disk attached.
 
 ```sh
 ./eject-doctor.zsh --version
-# eject-doctor 0.1.0
+# eject-doctor 0.1.1
 ```
 
 ## Safety model
 
-| Behavior | v0.1.0 |
+| Behavior | v0.1.1 |
 | --- | --- |
 | Uses `sudo` | No |
 | Kills processes | No |
@@ -109,9 +109,11 @@ If Eject Doctor shows a process, close or quit it manually only when you underst
 
 ```sh
 bash tests/smoke.sh
+python3 tests/test_live_doctor.py
 ```
 
 The smoke test checks syntax, help/version/sample/list commands, missing-argument behavior, and obvious destructive command patterns.
+The regression tests use real `lsof` with controlled open files to verify complete reports and full paths containing spaces. They do not mount or eject a disk. Python 3 is needed only for this development test suite.
 
 ## Design principles
 
@@ -130,7 +132,7 @@ The smoke test checks syntax, help/version/sample/list commands, missing-argumen
 
 ### Why does it not eject the disk for me?
 
-Because forced eject/unmount is exactly where data-loss risk starts. v0.1.0 is intentionally diagnostic only.
+Because forced eject/unmount is exactly where data-loss risk starts. v0.1.1 is intentionally diagnostic only.
 
 ### Why are some processes missing?
 

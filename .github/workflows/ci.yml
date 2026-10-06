@@ -13,6 +13,8 @@ jobs:
       - uses: actions/checkout@v5
       - name: zsh syntax and smoke tests
         run: bash tests/smoke.sh
+      - name: real lsof regression tests (controlled files, not disks)
+        run: python3 tests/test_live_doctor.py
       - name: representative read-only commands
         run: |
           zsh ./eject-doctor.zsh --version
