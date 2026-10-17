@@ -1,5 +1,7 @@
 # Eject Doctor
 
+Eject Doctor helps Mac users identify visible processes holding a disk open when Finder refuses to eject it.
+
 <p align="center">
   <img src="assets/demo.gif" alt="Eject Doctor terminal demo" width="860">
 </p>
@@ -12,9 +14,9 @@
   <img alt="language" src="https://img.shields.io/badge/language-zsh-89e051">
 </p>
 
-A tiny read-only macOS CLI that explains why an external disk refuses to eject.
-
 ## Why this exists
+
+Instead of interpreting raw `lsof` output yourself, Eject Doctor combines visible open paths, disk metadata and manual next steps in one report. It helps you investigate before considering a risky force eject; it never performs one.
 
 macOS often says an external drive is “in use” without naming the process. That leaves people rebooting, force-ejecting, or guessing. Eject Doctor answers a narrower question:
 
@@ -31,13 +33,23 @@ macOS often says an external drive is “in use” without naming the process. T
 
 ## Install
 
+In an empty directory, download the single executable release asset and make it executable:
+
+```sh
+curl -fsSLO https://github.com/00xmorty/eject-doctor/releases/download/v0.1.1/eject-doctor.zsh && chmod +x eject-doctor.zsh
+```
+
+This downloads a file; it does not execute a remote install script or change your PATH. Review it before running. [Release and asset](https://github.com/00xmorty/eject-doctor/releases/tag/v0.1.1) · [Source](./eject-doctor.zsh).
+
+For a source checkout:
+
 ```sh
 git clone https://github.com/00xmorty/eject-doctor.git
 cd eject-doctor
-chmod +x eject-doctor.zsh
+./eject-doctor.zsh list
 ```
 
-Optional PATH install:
+Optional user-local PATH install (add `~/bin` to your shell PATH):
 
 ```sh
 mkdir -p ~/bin
@@ -50,6 +62,40 @@ cp eject-doctor.zsh ~/bin/eject-doctor
 ./eject-doctor.zsh list
 ./eject-doctor.zsh doctor /Volumes/MyDisk
 ./eject-doctor.zsh sample
+```
+
+## Example output
+
+Illustrative output with anonymized users; paths and process IDs are examples, not measurements of your Mac.
+
+```text
+Eject Doctor report for: /Volumes/BackupSSD
+Safety: read-only; no sudo, no kill, no unmount, no force eject.
+
+Disk info:
+  Volume Name:              BackupSSD
+  Mounted:                  Yes
+  Mount Point:              /Volumes/BackupSSD
+  File System Personality:  APFS
+  Ejectable:                Yes
+
+Likely open files/processes touching this volume:
+  COMMAND                PID      USER         PATH
+  Finder                 431      you          /Volumes/BackupSSD/Invoices
+  mds_stores             812      root         /Volumes/BackupSSD/.Spotlight-V100
+
+Common macOS eject blockers to check manually:
+  - Finder window open inside the volume
+  - Spotlight indexing (mds, mdworker, mds_stores)
+  - backup/migration tools (backupd, systemmigrationd)
+  - menu bar/system monitors (iStat, MenuBar Stats, antivirus scanners)
+  - media/indexing apps previewing files from the disk
+
+Safe next steps:
+  1. Close Finder tabs/windows showing the disk.
+  2. Quit the listed app if it is yours and safe to close.
+  3. Wait for Spotlight/backup jobs to finish when they are the culprit.
+  4. Use Finder or Disk Utility eject. eject-doctor v0.1.1 never ejects for you.
 ```
 
 ## Command reference
@@ -87,6 +133,8 @@ Prints deterministic demo output without needing an external disk attached.
 
 ## Safety model
 
+No network requests or telemetry. Reports can expose local paths and process names; review them before sharing. The GIF and example show illustrative data, not the current state of your Mac.
+
 | Behavior | v0.1.1 |
 | --- | --- |
 | Uses `sudo` | No |
@@ -101,7 +149,7 @@ If Eject Doctor shows a process, close or quit it manually only when you underst
 
 ## Requirements
 
-- macOS
+- Tested on macOS 26.6.2.
 - zsh
 - Built-ins usually present on macOS: `diskutil`, `df`, `lsof`, `awk`, `sort`, `head`
 
@@ -148,4 +196,4 @@ Small, safety-preserving improvements are welcome. Please keep v0.x behavior rea
 
 ## License
 
-MIT
+[MIT](LICENSE).
