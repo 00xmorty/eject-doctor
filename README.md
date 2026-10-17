@@ -6,9 +6,12 @@ Eject Doctor helps Mac users identify visible processes holding a disk open when
   <img src="assets/demo.gif" alt="Eject Doctor terminal demo" width="860">
 </p>
 
+The GIF uses illustrative data and a neutral shell. Reproduce with `vhs demo.tape` (VHS required).
+
+
 <p align="center">
   <a href="https://github.com/00xmorty/eject-doctor/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/00xmorty/eject-doctor/actions/workflows/ci.yml/badge.svg"></a>
-  <img alt="release" src="https://img.shields.io/badge/release-v0.1.1-brightgreen">
+  <img alt="release" src="https://img.shields.io/badge/release-v0.1.2-brightgreen">
   <img alt="license" src="https://img.shields.io/badge/license-MIT-blue">
   <img alt="platform" src="https://img.shields.io/badge/platform-macOS-lightgrey">
   <img alt="language" src="https://img.shields.io/badge/language-zsh-89e051">
@@ -36,10 +39,10 @@ macOS often says an external drive is “in use” without naming the process. T
 In an empty directory, download the single executable release asset and make it executable:
 
 ```sh
-curl -fsSLO https://github.com/00xmorty/eject-doctor/releases/download/v0.1.1/eject-doctor.zsh && chmod +x eject-doctor.zsh
+curl -fsSLO https://github.com/00xmorty/eject-doctor/releases/download/v0.1.2/eject-doctor.zsh && chmod +x eject-doctor.zsh
 ```
 
-This downloads a file; it does not execute a remote install script or change your PATH. Review it before running. [Release and asset](https://github.com/00xmorty/eject-doctor/releases/tag/v0.1.1) · [Source](./eject-doctor.zsh).
+This downloads a file; it does not execute a remote install script or change your PATH. Review it before running. [Release and asset](https://github.com/00xmorty/eject-doctor/releases/tag/v0.1.2) · [Source](./eject-doctor.zsh).
 
 For a source checkout:
 
@@ -95,7 +98,7 @@ Safe next steps:
   1. Close Finder tabs/windows showing the disk.
   2. Quit the listed app if it is yours and safe to close.
   3. Wait for Spotlight/backup jobs to finish when they are the culprit.
-  4. Use Finder or Disk Utility eject. eject-doctor v0.1.1 never ejects for you.
+  4. Use Finder or Disk Utility eject. eject-doctor v0.1.2 never ejects for you.
 ```
 
 ## Command reference
@@ -128,14 +131,14 @@ Prints deterministic demo output without needing an external disk attached.
 
 ```sh
 ./eject-doctor.zsh --version
-# eject-doctor 0.1.1
+# eject-doctor 0.1.2
 ```
 
 ## Safety model
 
 No network requests or telemetry. Reports can expose local paths and process names; review them before sharing. The GIF and example show illustrative data, not the current state of your Mac.
 
-| Behavior | v0.1.1 |
+| Behavior | v0.1.2 |
 | --- | --- |
 | Uses `sudo` | No |
 | Kills processes | No |
@@ -180,7 +183,7 @@ The regression tests use real `lsof` with controlled open files to verify comple
 
 ### Why does it not eject the disk for me?
 
-Because forced eject/unmount is exactly where data-loss risk starts. v0.1.1 is intentionally diagnostic only.
+Because forced eject/unmount is exactly where data-loss risk starts. v0.1.2 is intentionally diagnostic only.
 
 ### Why are some processes missing?
 
