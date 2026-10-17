@@ -1,20 +1,20 @@
+Output "assets/demo.gif"
 Set Shell "zsh"
 Set FontFamily "Menlo"
-Set FontSize 18
-Set Width 1080
-Set Height 660
-Set Padding 28
-Set BorderRadius 0
-Set TypingSpeed 45ms
-Set PlaybackSpeed 0.85
-Output "assets/demo.gif"
-
-Type "./eject-doctor.zsh --version"
-Enter
-Sleep 1s
-Type "./eject-doctor.zsh list"
-Enter
+Set FontSize 17
+Set Width 1500
+Set Height 850
+Set TypingSpeed 20ms
+Set Framerate 12
+Hide
+Type "exec zsh -f" Enter
+Sleep 300ms
+Type "source demo/setup.zsh; clear" Enter
+Sleep 500ms
+Show
+Type "# Illustrative demo data (not a real machine)" Enter
+Type "./eject-doctor.zsh --version" Enter
 Sleep 2s
-Type "./eject-doctor.zsh sample"
-Enter
-Sleep 8s
+Type "./eject-doctor.zsh sample" Enter
+Sleep 2s
+Sleep 5s

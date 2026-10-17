@@ -12,7 +12,7 @@ help_output="$(zsh "$SCRIPT" help)"
 [[ "$help_output" == *"no kill"* ]]
 
 version_output="$(zsh "$SCRIPT" --version)"
-[[ "$version_output" == "eject-doctor 0.1.1" ]]
+[[ "$version_output" == "eject-doctor 0.1.2" ]]
 
 sample_output="$(zsh "$SCRIPT" sample)"
 [[ "$sample_output" == *"Eject Doctor report"* ]]
@@ -37,3 +37,8 @@ if grep -Eq 'diskutil[[:space:]]+(eject|unmount|unmountDisk)' "$SCRIPT"; then
 fi
 
 echo "eject-doctor smoke tests passed"
+
+if printf "%s" "$sample_output" | grep -Ei "mustafa|morty|/Users/"; then
+  echo "Personal data in sample" >&2
+  exit 1
+fi

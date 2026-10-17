@@ -4,7 +4,7 @@
 
 set -u
 
-VERSION="0.1.1"
+VERSION="0.1.2"
 MAX_PROCESSES=20
 
 usage() {
@@ -19,7 +19,7 @@ Usage:
   ./eject-doctor.zsh --version
 
 Safety:
-  - Read-only v0.1.1.
+  - Read-only v0.1.2.
   - No sudo, no kill, no unmount, no force eject.
   - Explains likely blockers so you can close apps or use Finder/Disk Utility yourself.
 EOF
@@ -112,7 +112,7 @@ Safe next steps:
   1. Close Finder tabs/windows showing the disk.
   2. Quit the listed app if it is yours and safe to close.
   3. Wait for Spotlight/backup jobs to finish when they are the culprit.
-  4. Use Finder or Disk Utility eject. eject-doctor v0.1.1 never ejects for you.
+  4. Use Finder or Disk Utility eject. eject-doctor v0.1.2 never ejects for you.
 EOF
 }
 
@@ -154,7 +154,7 @@ Disk info:
 
 Likely open files/processes touching this volume:
   COMMAND                PID      USER         PATH
-  Finder                 431      mustafa      /Volumes/BackupSSD/Invoices
+  Finder                 431      you      /Volumes/BackupSSD/Invoices
   mds_stores             812      root         /Volumes/BackupSSD/.Spotlight-V100
 
 Common macOS eject blockers to check manually:
@@ -168,7 +168,7 @@ Safe next steps:
   1. Close Finder tabs/windows showing the disk.
   2. Quit the listed app if it is yours and safe to close.
   3. Wait for Spotlight/backup jobs to finish when they are the culprit.
-  4. Use Finder or Disk Utility eject. eject-doctor v0.1.1 never ejects for you.
+  4. Use Finder or Disk Utility eject. eject-doctor v0.1.2 never ejects for you.
 EOF
 }
 

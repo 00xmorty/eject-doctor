@@ -1,3 +1,9 @@
+# v0.1.2
+
+- Align executable and documented version with the release.
+- Re-record the demo using neutral users and illustrative data.
+- Preserve read-only diagnostics.
+
 # v0.1.1
 
 Patch release for read-only diagnostic reliability.
